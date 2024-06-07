@@ -1,6 +1,7 @@
 using AsmResolver.DotNet;
 using AsmResolver.DotNet.Signatures;
 using AsmResolver.PE.DotNet.Cil;
+using Echo.Platforms.AsmResolver.Emulation.Utilities;
 
 namespace Echo.Platforms.AsmResolver.Emulation.Dispatch.ObjectModel;
 
@@ -22,6 +23,11 @@ public abstract class FieldOpCodeHandler : ICilOpCodeHandler
             var initResult = context.Machine.TypeManager.HandleInitialization(context.Thread, instantiated);
             if (!initResult.IsNoAction)
                 return initResult.ToDispatchResult();
+
+            if (!genericContext.IsEmpty)
+                // field = field.ResolveGenericField(genericContext);
+                field = new MemberReference(field.DeclaringType.ResolveGenericType(genericContext).ToTypeDefOrRef(), 
+                    field.Name, field.Signature);
         }
 
         // Handle the actual field operation.

@@ -599,7 +599,7 @@ namespace Echo.Platforms.AsmResolver.Emulation
                     return GetTypeDefOrRefContentsLayout(type.GetUnderlyingTypeDefOrRef()!, GenericContext.FromType(type), sizeof(uint));
                 
                 case ElementType.Class:
-                case ElementType.GenericInst:
+                case ElementType.GenericInst when !type.IsValueType:
                     return GetTypeDefOrRefContentsLayout(type.GetUnderlyingTypeDefOrRef()!, GenericContext.FromType(type), PointerSize);
 
                 default:

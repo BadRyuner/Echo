@@ -729,7 +729,7 @@ namespace Echo.Platforms.AsmResolver.Tests.Emulation
                     && descriptor.Name == "Invoke")
                 .Offset;
 
-            var expectedResults = new string[] { "Mr.String", "Mocks.TestClass" };
+            var expectedResults = new string[] { "123", "Mr.String", "Mocks.TestClass" };
 
             for (int i = 0; i < expectedResults.Length; i++)
             {

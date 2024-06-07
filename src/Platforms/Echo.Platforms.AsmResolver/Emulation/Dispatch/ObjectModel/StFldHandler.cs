@@ -1,6 +1,8 @@
 using AsmResolver.DotNet;
+using AsmResolver.DotNet.Signatures;
 using AsmResolver.PE.DotNet.Cil;
 using Echo.Platforms.AsmResolver.Emulation.Stack;
+using Echo.Platforms.AsmResolver.Emulation.Utilities;
 
 namespace Echo.Platforms.AsmResolver.Emulation.Dispatch.ObjectModel
 {
@@ -18,8 +20,10 @@ namespace Echo.Platforms.AsmResolver.Emulation.Dispatch.ObjectModel
         {
             var stack = context.CurrentFrame.EvaluationStack;
             var factory = context.Machine.ValueFactory;
-            
-            var value = stack.Pop(field.Signature!.FieldType);
+
+            var genericContext = GenericContext.FromMethod(context.CurrentFrame.Method);
+
+            var value = stack.Pop(field.ResolveFieldType(genericContext)!);
             var instance = stack.Pop();
 
             try

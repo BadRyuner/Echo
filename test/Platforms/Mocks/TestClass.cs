@@ -298,7 +298,7 @@ namespace Mocks
 
         public static void TestVirtualDelegateCall()
         {
-            var objects = new object[] { "Mr.String", new TestClass() };
+            var objects = new object[] { 123, "Mr.String", new TestClass() };
             for(int i = 0; i < objects.Length; i++)
             {
                 var @object = objects[i];
